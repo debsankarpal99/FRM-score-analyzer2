@@ -6,25 +6,26 @@ const ResultTable = ({ scores }) => {
 
   const handleDownloadCSV = () => {
     let csv = "Topic,Score (%)\n";
-    
+
     Object.entries(scores).forEach(([topic, score]) => {
+      // For FRM, score is a percentile midpoint, display as such
       const scoreValue = score !== null ? score.toFixed(1) : 'N/A';
-      csv += `"${topic}",${scoreValue}\n`;
+       csv += `"${topic}",${scoreValue}\n`;
     });
-    
+
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-    saveAs(blob, 'exam_scores.csv');
+    saveAs(blob, 'frm_results.csv'); // Updated file name
   };
 
   return (
     <div className="mt-8">
       <h2 className="text-xl font-bold mb-4">Analysis Results</h2>
-      
+
       <table className="result-table">
         <thead>
           <tr>
             <th>Topic</th>
-            <th>Score (%)</th>
+            <th>Percentile Midpoint (%)</th> {/* Updated column header */}
           </tr>
         </thead>
         <tbody>
@@ -36,7 +37,7 @@ const ResultTable = ({ scores }) => {
           ))}
         </tbody>
       </table>
-      
+
       <button
         className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
         onClick={handleDownloadCSV}
