@@ -5,16 +5,15 @@ const ResultTable = ({ scores }) => {
   if (!scores || Object.keys(scores).length === 0) return null;
 
   const handleDownloadCSV = () => {
-    let csv = "Topic,Score (%)\n";
+    let csv = "Topic,Percentile Range (%)\n";
 
     Object.entries(scores).forEach(([topic, score]) => {
-      // For FRM, score is a percentile midpoint, display as such
-      const scoreValue = score !== null ? score.toFixed(1) : 'N/A';
-       csv += `"${topic}",${scoreValue}\n`;
+      const scoreValue = score !== null ? score : 'N/A';
+      csv += `"${topic}",${scoreValue}\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-    saveAs(blob, 'frm_results.csv'); // Updated file name
+    saveAs(blob, 'frm_results.csv');
   };
 
   return (
@@ -25,14 +24,14 @@ const ResultTable = ({ scores }) => {
         <thead>
           <tr>
             <th>Topic</th>
-            <th>Percentile Midpoint (%)</th> {/* Updated column header */}
+            <th>Percentile Range (%)</th>
           </tr>
         </thead>
         <tbody>
           {Object.entries(scores).map(([topic, score], index) => (
             <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
               <td>{topic}</td>
-              <td>{score !== null ? `${score.toFixed(1)}%` : 'Not detected'}</td>
+              <td>{score !== null ? `${score}` : 'Not detected'}</td>
             </tr>
           ))}
         </tbody>
