@@ -63,7 +63,7 @@ const ResultTable = ({ scores }) => {
             const scoreValue = score !== null && score !== undefined ? score : 'Not detected';
             const mastery = getMastery(score);
             const comment = mastery !== 'N/A'
-              ? `Candidates scoring in this quartile demonstrated a ${mastery} understanding of the subject area.`
+              ? `You have shown ${mastery} understanding of the subject area.`
               : '';
 
             return (
