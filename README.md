@@ -1,1 +1,1 @@
-CFA topic-wise percentage analyzer
+FRM score analyzer
